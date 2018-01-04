@@ -80,6 +80,17 @@ def recognise_nick(bot, trigger):
         elif queuearg == 'stop':
             twit_api.UpdateImage('error-bandage.png')
 
+@module.nickname_commands(r'help')
+def help(bot, trigger):
+    try:
+        if trigger.nick not in ALLOWED_NICKS:
+            return
+        bot.say('Usage: RustStatus: incident {start,stop}')
+        bot.say('Usage: RustStatus: tweet Your message here')
+    except:
+        traceback.print_exc()
+        bot.say('Bot failure, please chastise aidanhs')
+
 # Shouldn't need [ ] around the space, but it becomes optional if they're removed...
 @module.nickname_commands(r'incident[ ](?P<op>.*)')
 def incident(bot, trigger):
