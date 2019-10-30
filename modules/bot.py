@@ -73,12 +73,17 @@ def recognise_nick(bot, trigger):
         status = twit_api.PostUpdate(queuearg)
         print('Posted', queuearg)
         print('Status', status)
+        bot.say('https://twitter.com/{user}/status/{id}'.format(
+                    user=status.user.screen_name, id=status.id_str),
+                '#rust-infra')
     elif queueop == INCIDENT:
         assert queuearg in ['start', 'stop']
         if queuearg == 'start':
             twit_api.UpdateImage('error-incident.png')
+            bot.say('Incident started', '#rust-infra')
         elif queuearg == 'stop':
             twit_api.UpdateImage('error-bandage.png')
+            bot.say('Incident stopped', '#rust-infra')
 
 @module.nickname_commands(r'help')
 def help(bot, trigger):
